@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
-bundles/bundle.js
-bundles/bundle.css
 content
 dat.json
+bundles/bundle.js
+bundles/bundle.css
+package-lock.json
