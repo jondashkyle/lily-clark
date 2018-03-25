@@ -10,12 +10,16 @@ function wrapper (view) {
     }
 
     // 404
-    if (!state.content[state.href || '/']) {
+    if (
+      state.route !== 'archive/:entry/:name' &&
+      !state.content[state.href || '/']
+    ) {
       return createNotFound(state, emit)
     }
 
     return html`
       <body>
+        <a href="/" class="icon"></a>
         ${view(state, emit)}
       </body>
     `

@@ -1,12 +1,12 @@
 :root {
   --background: #fff;
   --foreground: #000;
-  --sans: sans-serif;
-  --mono: monospace;
+  --sans: "Sneak", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --mono: "Sneak Mono", "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 html {
-  font-size: calc(10px + 2vmin);
+  font-size: 140%;
 }
 
 body {
@@ -21,4 +21,64 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/**
+ * icon
+ */
+
+.icon {
+  background: url(/assets/icon.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.4rem;
+  width: 4rem;
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  z-index: 9;
+}
+
+/**
+ * ui
+ */
+
+.close {
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+  vertical-align: middle;
+  margin-left: 1rem;
+  transform: rotate(-45deg);
+  transition: transform 150ms ease-out;
+}
+
+.close.active {
+  transform: rotate(0deg);
+}
+
+.close:after,
+.close:before {
+  background: currentColor;
+  display: block;
+  content: '';
+  height: 1.5rem;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+}
+
+.close:after { transform: rotate(45deg) }
+.close:before { transform: rotate(-45deg) }
+
+/**
+ * type
+ */
+
+@font-face {
+  font-family: 'Sneak';
+  src: url(/assets/Sneak-Trial-Light.otf) ;
 }
