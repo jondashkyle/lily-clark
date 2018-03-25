@@ -7,11 +7,6 @@ module.exports = view
 function view (state, emit) {
   var page = state.content[state.href || '/']
 
-  // loading
-  if (!state.site.loaded) return renderLoading(state, emit)
-  // 404
-  if (!page) return renderNotFound(state, emit)
-
   // local data
   var pages = getPages(page, state.content)
   var fields = getFields(page)
@@ -19,7 +14,7 @@ function view (state, emit) {
 
   // template
   return html`
-    <body>
+    <div>
       ${fields.map(renderField)}
       <section class="container">
         <h2>pages</h2>
@@ -33,7 +28,7 @@ function view (state, emit) {
           ${files.map(renderFile)}
         </ul>
       </section>
-    </body>
+    </div>
   `
 }
 
@@ -60,24 +55,6 @@ function renderField (state) {
       <h3>${state.key}</h3>
       <div>${state.value}</div>
     </section>
-  `
-}
-
-function renderLoading (state, emit) {
-  return html`
-    <body>
-      <div class="container">
-        <h1>Loading</h1>
-      </div>
-    </body>
-  `
-}
-
-function renderNotFound (state, emit) {
-  return html`
-    <body>
-      <h1>Page not found</h1>
-    </body>
   `
 }
 
