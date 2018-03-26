@@ -3,19 +3,12 @@ var html = require('choo/html')
 var css = require('sheetify')
 var path = require('path')
 
+var Slideshow = require('../components/slideshow')
+var slideshow = new Slideshow()
+
 var styles = css`
   :host {
-    display: flex;
-    height: 100vh;
-    width: 100%;
     position: relative;
-  }
-
-  :host img {
-    position: relative;
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
   }
 
   :host .close {
@@ -23,12 +16,6 @@ var styles = css`
     top: 1rem;
     right: 1rem;
     z-index: 2;
-  }
-
-  :host > a:first-child {
-    display: flex;
-    height: 100%;
-    width: 100%;
   }
 `
 
@@ -39,13 +26,25 @@ function view (state, emit) {
   var parent = path.resolve(state.href, '../')
   var files = getFiles()
   var file = getFile(files)
+  var index = files.indexOf(file)
 
   if (!file) return html`<div>Not found</div>`
 
   return html`
     <div class="${styles}">
-      <a href="${parent}"><img src="${file.path}"></a>
       <a href="${parent}" class="close active"></a>
+      <div>
+        ${slideshow.render(state, emit, {
+          initialIndex: index,
+          elements: files.map(function (file) {
+            return html`
+              <div class="slide-contain">
+                <img src="${file.path}">
+              </div>
+            `
+          })
+        })}
+      </div>
     </div>
   `
 

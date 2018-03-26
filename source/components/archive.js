@@ -9,10 +9,13 @@ var entry = require('./entry')
 
 var styles = css`
   :host {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-row-gap: 0.5rem;
-    padding: 1rem 1rem 1rem 4rem;
+    padding: 0 1rem 0 4rem;
+  }
+
+  @media (max-width: 800px) {
+    :host {
+      padding: 3rem 1rem 0 1rem;
+    }
   }
 `
 
@@ -33,9 +36,18 @@ module.exports = class Archive extends Nanocomponent {
   }
 
   load (element) {
+    // see if there is an element matching our active entry
     var el = document.getElementById('entry-' + this.props.entry)
-    if (el) el.scrollIntoView()
 
+    // load into view if so
+    if (el && typeof window !== 'undefined') {
+      // clearly a hack
+      setTimeout(function () {
+        window.scrollTo(0, el.getBoundingClientRect().top)
+      }, 0)
+    }
+
+    // observe changes in scroll to update history (progressive)
     if (typeof IntersectionObserver !== 'undefined') {
       this.observer = new IntersectionObserver(this.handleIntersect)
       ;[...element.children].forEach(el => this.observer.observe(el))
@@ -43,6 +55,7 @@ module.exports = class Archive extends Nanocomponent {
   }
 
   unload (element) {
+    // disconnect observers (progressive)
     if (typeof IntersectionObserver !== 'undefined') {
       this.observer.disconnect()
     }

@@ -6,7 +6,7 @@
 }
 
 html {
-  font-size: 140%;
+  font-size: 20px;
 }
 
 body {
@@ -38,6 +38,11 @@ a {
   top: 1rem;
   left: 0;
   z-index: 9;
+}
+
+.loading {
+  height: 3rem;
+  width: 3rem;
 }
 
 /**
@@ -73,6 +78,16 @@ a {
 
 .close:after { transform: rotate(45deg) }
 .close:before { transform: rotate(-45deg) }
+
+/**
+ * mobile
+ */
+
+@media (max-width: 800px) {
+  .icon {
+    position: absolute;
+  }
+}
 
 /**
  * type

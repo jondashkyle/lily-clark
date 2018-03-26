@@ -1,0 +1,84 @@
+:host .flickity-slider > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+:host .flickity-prev-next-button {
+  height: 100vh;
+  width: 20%;
+  top: 0;
+  transform: none;
+  border-radius: 0;
+}
+
+:host .flickity-button {
+  background: none;
+}
+
+.flickity-prev-next-button .flickity-button-icon {
+  top: 50%;
+  left: auto;
+  height: 1.5rem;
+  width: 1.5rem;   
+  margin-top: -0.75rem;
+}
+
+:host .flickity-prev-next-button.previous { left: 0 }
+:host .flickity-prev-next-button.next { right: 0 }
+:host .flickity-button-icon { display: none }
+
+:host .flickity-prev-next-button:before {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  height: 1.5rem;
+  width: 1.5rem;   
+  margin-top: -0.75rem;
+  transition: transform 150ms ease-out;
+}
+
+:host .flickity-prev-next-button.previous:before {
+  background-image: url(/assets/arrow-left.svg);
+  left: 1rem;
+}
+
+:host .flickity-prev-next-button.next:before {
+  background-image: url(/assets/arrow-right.svg);
+  right: 1rem;
+}
+
+:host .flickity-prev-next-button.previous:hover:before {
+  transform: translate3d(0.5rem, 0, 0);
+}
+
+:host .flickity-prev-next-button.next:hover:before {
+  transform: translate3d(-0.5rem, 0, 0);
+}
+
+@media (max-width: 800px) {
+  :host .flickity-prev-next-button {
+    display: none;
+  }
+}
+
+/**
+ * Slides
+ */
+
+:host .slide-contain {
+  display: flex;
+  padding: 3.5rem;
+}
+
+:host .slide-contain > * {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}

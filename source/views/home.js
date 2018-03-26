@@ -1,7 +1,19 @@
 var Page = require('enoki/page')
 var html = require('choo/html')
+var css = require('sheetify')
+
 var Slideshow = require('../components/slideshow')
 var slideshow = new Slideshow()
+
+var styles = css`
+  :host > div:nth-child(1) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+    z-index: 9;
+  }
+`
 
 module.exports = view
 
@@ -17,14 +29,17 @@ function view (state, emit) {
     .filter(file => file)
     .map(function (file) {
       return html`
-        <div style="display: flex;">
-          <img src="${file.path}" style="height: 100%; width: 100%; object-fit: contain">
+        <div class="slide-contain">
+          <img src="${file.path}">
         </div>
       `
     })
 
   return html`
-    <div>
+    <div class="${styles}">
+      <div>
+        <a href="/archive">Archive</a>
+      </div>
       ${slideshow.render(state, emit, {
         elements: images
       })}

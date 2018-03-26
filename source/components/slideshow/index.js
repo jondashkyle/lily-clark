@@ -5,16 +5,7 @@ var css = require('sheetify')
 var xtend = require('xtend')
 
 css('flickity/dist/flickity.min.css')
-
-var styles = css`
-  :host .flickity-slider > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-  }
-`
+var styles = css('./index.css')
 
 module.exports = class Slideshow extends Nanocomponent {
   constructor () {
@@ -24,6 +15,7 @@ module.exports = class Slideshow extends Nanocomponent {
 
     this.props = {
       elements: [],
+      pageDots: false,
       infinite: true,
       wrapAround: true
     }

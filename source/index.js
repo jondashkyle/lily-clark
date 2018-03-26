@@ -12,7 +12,7 @@ app.use(require('enoki/choo')())
 app.use(require('./plugins/archive')())
 
 app.route('*', wrapper(require('./views/default')))
-app.route('/', wrapper(require('./views/slideshow')))
+app.route('/', wrapper(require('./views/home')))
 app.route('/archive', wrapper(require('./views/archive')))
 app.route('/archive/:entry', wrapper(require('./views/archive')))
 app.route('/archive/:entry/:name', wrapper(require('./views/solo')))

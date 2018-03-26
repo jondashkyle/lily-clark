@@ -1,10 +1,24 @@
-<h1 align="center">Enoki / Vacant</h1>
+<h1 align="center">Lily Clark</h1>
 
-Truly the most basic design. An example of how to load a site’s content and problematically display whatever content is available, regardless of what fields are available.
+A site for Lily!
 
-Consider it a boilerplate instead of a reference to study. Takes these ideas with you to use from memory in the future.
+## Todo
 
-Includes [Choo](https://github.com/choojs/choo) as a front-end framework, and [Sheetify](https://github.com/stackcss/sheetify) for css-in-js.
+### Homepage
+
+- titles
+
+## `/archive/:entry/:name`
+
+- update the url on slideshow navigation
+
+### Slideshow
+
+- titles
+- load on correct slide index
+- pre-loading images
+- video handling
+- slide types: contain / cover / two up
 
 ## Customization
 
