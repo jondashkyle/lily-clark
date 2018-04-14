@@ -56,7 +56,7 @@ function entry (state, emit, props) {
   function createThumbnail (state, emit, file) {
     return html`
       <a href="${props.url}/${file.name}">
-        <img src="${file.path}" />
+        <img src="${file.path}">
       </a>
     `
   }

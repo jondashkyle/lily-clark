@@ -123,7 +123,7 @@ function view (state, emit) {
   }
 
   return html`
-    <div class="${styles}">
+    <div id="featured-${page().value('name')}" class="${styles}">
       ${navigation(state, emit)}
       <div class="content">
         <div class="meta">
