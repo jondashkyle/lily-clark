@@ -12,8 +12,9 @@
   "license": "Apache 2.0",
   "dependencies": {
     "choo": "^6.0.0",
-    "enoki": "^2.0.0",
+    "enoki": "^2.0.7-next.2",
     "flickity": "^2.1.0",
+    "markdown-it": "^8.4.1",
     "nanocomponent": "^6.5.1",
     "nanoreset": "^1.2.0",
     "object-keys": "^1.0.11",

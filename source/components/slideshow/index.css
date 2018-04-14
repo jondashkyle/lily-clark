@@ -7,9 +7,10 @@
 }
 
 :host .flickity-prev-next-button {
-  height: 100vh;
+  top: auto;
+  height: 33vh;
   width: 20%;
-  top: 0;
+  bottom: 0;
   transform: none;
   border-radius: 0;
 }
@@ -19,7 +20,7 @@
 }
 
 .flickity-prev-next-button .flickity-button-icon {
-  top: 50%;
+  bottom: 50%;
   left: auto;
   height: 1.5rem;
   width: 1.5rem;   
@@ -37,10 +38,9 @@
   content: '';
   display: block;
   position: absolute;
-  top: 50%;
+  bottom: 1rem;
   height: 1.5rem;
   width: 1.5rem;   
-  margin-top: -0.75rem;
   transition: transform 150ms ease-out;
 }
 
@@ -75,6 +75,10 @@
 :host .slide-contain {
   display: flex;
   padding: 3.5rem;
+}
+
+:host .slide-contain.no-pad {
+  padding: 0;
 }
 
 :host .slide-contain > * {

@@ -14,19 +14,42 @@ module.exports = class Slideshow extends Nanocomponent {
     this.emit = () => { }
 
     this.props = {
+      index: 0,
       elements: [],
       pageDots: false,
       infinite: true,
-      wrapAround: true
+      wrapAround: true,
+      lazyLoad: 2,
+      onSelect: function () { },
+      onStaticClick: function () { }
     }
   }
 
   load (element) {
     var self = this
+
+    // skip if present
+    if (this.flickity) return 
+
+    // instantiate new one
     this.flickity = new Flickity(element, this.props)
+
+    // select
     this.flickity.on('select', function (index) {
+      if (index === self.props.index) return
+      self.props.onSelect(index)
       self.props.index = index
     })
+
+    // click
+    this.flickity.on('staticClick', function (event, pointer, cellElement, cellIndex) {
+      self.props.onStaticClick(event, pointer, cellElement, cellIndex)
+    })
+  }
+
+  unload (element) {
+    this.flickity.destroy()
+    this.flickity = undefined
   }
 
   createElement (state, emit, props) {
@@ -42,6 +65,13 @@ module.exports = class Slideshow extends Nanocomponent {
   }
 
   update (state, emit, props) {
-    return false
+    props = props || { }
+
+    if (this.flickity && props.initialIndex !== this.props.index) {
+      this.state.index = props.initialIndex
+      this.flickity.select(props.initialIndex)
+    }
+
+    return !this.flickity
   }
 }

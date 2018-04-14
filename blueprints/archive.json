@@ -1,0 +1,24 @@
+{
+  "title": "Archive",
+  "files": false,
+  "pages": {
+    "view": "entry"
+  },
+  "layout": {
+    "content": {
+      "fields": ["title", "pages"],
+      "width": "1/1"
+    }
+  },
+  "fields": {
+    "title": {
+      "label": "Title",
+      "type": "text"
+    },
+    "pages": {
+      "label": "Pages",
+      "type": "pages",
+      "limit": 40
+    }
+  }
+}

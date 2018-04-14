@@ -12,6 +12,7 @@ function wrapper (view) {
     // 404
     if (
       state.route !== 'archive/:entry/:name' &&
+      state.route !== ':name' &&
       !state.content[state.href || '/']
     ) {
       return createNotFound(state, emit)
@@ -29,9 +30,9 @@ function wrapper (view) {
 function createLoading (state, emit) {
   return html`
     <body>
-      <div class="container">
-        <h1>Loading</h1>
-      </div>
+      <svg class="loading" id="Default" xmlns="http://www.w3.org/2000/svg" width="49.99" height="33.66" viewBox="0 0 49.99 33.66">
+        <path vector-effect="non-scaling-stroke" fill="none" stroke="#000" stroke-width="1" class="cls-1" d="M2.49,12.33H16a4.5,4.5,0,0,0,4.5-4.5h0A4.5,4.5,0,0,0,16,3.33h0a4.5,4.5,0,0,0-4.5,4.5v18A4.5,4.5,0,0,1,7,30.33H7a4.5,4.5,0,0,1-4.5-4.5h0A4.5,4.5,0,0,1,7,21.33H43a4.5,4.5,0,0,1,4.5,4.5h0a4.5,4.5,0,0,1-4.5,4.5h0a4.5,4.5,0,0,1-4.5-4.5v-18A4.5,4.5,0,0,0,34,3.33h0a4.5,4.5,0,0,0-4.5,4.5h0a4.5,4.5,0,0,0,4.5,4.5h13.5"/>
+      </svg>
     </body>
   `
 }

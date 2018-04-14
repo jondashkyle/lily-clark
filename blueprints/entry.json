@@ -1,0 +1,43 @@
+{
+  "title": "Entry",
+  "pages": false,
+  "fields": {
+    "title": {
+      "label": "Title",
+      "type": "text",
+      "width": "1/2"
+    },
+    "featured": {
+      "label": "Featured",
+      "true": "Is featured",
+      "false": "Is not featured",
+      "type": "checkbox",
+      "width": "1/2"
+    },
+    "tags": {
+      "label": "Tags",
+      "type": "tags",
+      "width": "1/2"
+    },
+    "date": {
+      "label": "Date",
+      "type": "date",
+      "default": "today",
+      "width": "1/2"
+    },
+    "dimensions": {
+      "label": "Dimensions",
+      "type": "text",
+      "width": "1/2"
+    },
+    "price": {
+      "label": "Price",
+      "type": "text",
+      "width": "1/2"
+    },
+    "text": {
+      "label": "Text",
+      "type": "textarea"
+    }
+  }
+}

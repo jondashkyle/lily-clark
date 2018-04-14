@@ -36,10 +36,13 @@ function view (state, emit) {
       <div>
         ${slideshow.render(state, emit, {
           initialIndex: index,
+          onSelect: function (_index) {
+            emit(state.events.PUSHSTATE, parent + '/' + files[_index].name)
+          },
           elements: files.map(function (file) {
             return html`
-              <div class="slide-contain">
-                <img src="${file.path}">
+              <div class="slide-contain no-pad">
+                <img data-flickity-lazyload="${file.path}">
               </div>
             `
           })
