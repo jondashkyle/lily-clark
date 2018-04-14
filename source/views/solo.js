@@ -23,7 +23,8 @@ module.exports = view
 
 function view (state, emit) {
   var page = Page(state)
-  var parent = path.resolve(state.href, '../')
+  var parent = '/archive/' + state.params.entry
+  var relative = path.resolve(state.href, '../')
   var files = getFiles()
   var file = getFile(files)
   var index = files.indexOf(file)
@@ -32,12 +33,12 @@ function view (state, emit) {
 
   return html`
     <div class="${styles}">
-      <a href="${parent}" class="close active"></a>
+      <a href="${relative}" class="close active"></a>
       <div>
         ${slideshow.render(state, emit, {
           initialIndex: index,
           onSelect: function (_index) {
-            emit(state.events.PUSHSTATE, parent + '/' + files[_index].name)
+            emit(state.events.PUSHSTATE, relative + '/' + files[_index].name)
           },
           elements: files.map(function (file) {
             return html`

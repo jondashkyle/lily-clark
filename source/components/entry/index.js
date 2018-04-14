@@ -47,6 +47,7 @@ function entry (state, emit, props) {
   `
 
   function handleClick (event) {
+    if (typeof props.handleClick === 'function') props.handleClick(event)
     if (props.active) {
       emit(state.events.ARCHIVE_REMOVE, { name: props.name })
     }

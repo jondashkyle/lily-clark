@@ -1,4 +1,5 @@
 var Nanocomponent = require('nanocomponent')
+var scrollmonitor = require('scrollmonitor')
 var objectValues = require('object-values')
 var html = require('choo/html')
 var css = require('sheetify')
@@ -12,9 +13,25 @@ var styles = css`
     padding: 0 1rem 0 4rem;
   }
 
+  :host .archive-toggle {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    padding: 1rem;
+  }
+
   @media (max-width: 800px) {
     :host {
       padding: 3rem 1rem 0 1rem;
+    }
+
+    :host .archive-toggle {
+      position: absolute;
+      bottom: auto;
+      left: auto;
+      top: 0;
+      right: 0;
     }
   }
 `
@@ -24,6 +41,7 @@ module.exports = class Archive extends Nanocomponent {
     super()
     this.state = { } 
     this.emit = () => { }
+    this.watchers = { }
 
     this.props = {
       children: [ ],
@@ -32,10 +50,12 @@ module.exports = class Archive extends Nanocomponent {
       entry: ''
     }
 
-    this.handleIntersect = this.handleIntersect.bind(this)
+    this.handleToggle = this.handleToggle.bind(this)
   }
 
   load (element) {
+    var self = this
+
     // see if there is an element matching our active entry
     var el = document.getElementById('entry-' + this.props.entry)
 
@@ -47,18 +67,37 @@ module.exports = class Archive extends Nanocomponent {
       }, 0)
     }
 
-    // observe changes in scroll to update history (progressive)
-    if (typeof IntersectionObserver !== 'undefined') {
-      this.observer = new IntersectionObserver(this.handleIntersect)
-      ;[...element.children].forEach(el => this.observer.observe(el))
-    }
+    // scroll tracking
+    this.props.children.forEach(function (props) {
+      var el = element.querySelector('[id="entry-' + props.name + '"]')
+      if (!el) return
+      var watcher = scrollMonitor.create(el)
+
+      // store
+      self.watchers[props.name] = watcher
+      watcher.stateChange(handleChange)
+      handleChange.call(watcher)
+
+      function handleChange () {
+        if (!this.isInViewport) return
+        if (this.isFullyInViewport) {
+          var shouldPush = self.props.active.indexOf(props.name) >= 0
+          // update url
+          if (shouldPush && props.name !== self.props.entry) {
+            self.emit(
+              self.state.events.PUSHSTATE,
+              path.resolve(self.props.href, props.name)
+            )
+          }
+        }
+      }
+    })
   }
 
   unload (element) {
-    // disconnect observers (progressive)
-    if (typeof IntersectionObserver !== 'undefined') {
-      this.observer.disconnect()
-    }
+    objectValues(this.watchers).forEach(function (watcher) {
+      watcher.destroy()
+    })
   }
 
   createElement (state, emit, props) {
@@ -79,19 +118,8 @@ module.exports = class Archive extends Nanocomponent {
     `
   }
 
-  handleIntersect (elements) {
-    try {
-      var el = elements.sort((a, b) => (
-        b.intersectionRatio - a.intersectionRatio
-      ))
-      .filter(el => el.intersectionRatio)[0]
-      var name = el.target.getAttribute('id').replace('entry-', '')
-      var shouldPush = this.props.active.indexOf(name) >= 0
-      if (shouldPush) this.emit(
-        this.state.events.PUSHSTATE,
-        path.resolve(this.props.href, name)
-      )
-    } catch (err) { }
+  handleToggle (event) {
+    this.emit(this.state.events.ARCHIVE_TOGGLE)
   }
 
   update (state, emit, props) {

@@ -12,7 +12,8 @@ function wrapper (view) {
     // 404
     if (
       state.route !== 'archive/:entry/:name' &&
-      state.route !== ':name' &&
+      state.route !== ':entry' &&
+      state.route !== ':entry/:name' &&
       !state.content[state.href || '/']
     ) {
       return createNotFound(state, emit)

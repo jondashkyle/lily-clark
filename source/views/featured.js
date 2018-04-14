@@ -104,7 +104,7 @@ module.exports = view
 
 function view (state, emit) {
   var page = Page(state)
-  var url = '/archive/' + state.params.name
+  var url = '/archive/' + state.params.entry
   var children = page('/archive')
     .children()
     .toArray()
@@ -164,8 +164,11 @@ function view (state, emit) {
   }
 
   function createImage (props) {
+    if (!props.name) return
     return html`
-      <img src="${props.path}" />
+      <a href="${state.href}/${props.name}">
+        <img src="${props.path}" />
+      </a>
     `
   }
 }

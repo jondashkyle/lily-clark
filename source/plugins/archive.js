@@ -1,17 +1,22 @@
+var Page = require('enoki/page')
+
 module.exports = archive
 
 function archive () {
   return function (state, emitter, app) {
     state.archive = {
+      toggled: false,
       visited: [ ],
       active: [ ]
     }
 
     state.events.ARCHIVE_ADD = 'archive:add'
     state.events.ARCHIVE_REMOVE = 'archive:remove'
+    state.events.ARCHIVE_TOGGLE = 'archive:toggle'
 
     emitter.on(state.events.ARCHIVE_ADD, handleAdd)
     emitter.on(state.events.ARCHIVE_REMOVE, handleRemove)
+    emitter.on(state.events.ARCHIVE_TOGGLE, handleToggle)
 
     function handleAdd (data) {
       data = data || { }
@@ -31,6 +36,27 @@ function archive () {
         state.archive.active.splice(index, 1)
         if (data.render !== false) emitter.emit(state.events.RENDER)
       }
+    }
+
+    function handleToggle (data = { }) {
+      var shouldToggle = !state.archive.toggled
+      var shouldRender = data.render !== false
+
+      if (shouldToggle) {
+        state.archive.active = Page(state)('/archive')
+          .children()
+          .visible()
+          .toArray()
+          .map(function (props) {
+            return props.name
+          })
+      } else {
+        state.archive.active = [ ]
+      }
+
+      delete data.render
+      state.archive.toggled = shouldToggle
+      if (shouldRender) emitter.emit(state.events.RENDER)
     }
   }
 }

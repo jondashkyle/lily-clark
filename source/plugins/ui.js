@@ -5,9 +5,7 @@ module.exports = plugin
 function plugin (opts) {
   return function (state, emitter) {
     state.ui = {
-      home: {
-        index: 0
-      }
+      home: { index: 0 }
     }
 
     // events
@@ -23,7 +21,9 @@ function plugin (opts) {
     }
 
     function handleNavigate () {
-      window.scrollTo(0, 0)
+      if (state.route === ':entry') {
+        window.scrollTo(0, 0)
+      }
     }
   }
 }
