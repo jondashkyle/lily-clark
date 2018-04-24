@@ -16,6 +16,10 @@ var styles = css`
     grid-column-end: span 10;
   }
 
+  :host > div:nth-child(1) {
+    max-width: 32rem;
+  }
+
   :host > div:nth-child(2) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

@@ -5,7 +5,10 @@ module.exports = wrapper
 function wrapper (view) {
   return function (state, emit) {
     // loading
-    if (!state.site.loaded) {
+    if (
+      !state.site.loaded ||
+      !state.ui.assetsLoaded
+    ) {
       return createLoading(state, emit)
     }
 

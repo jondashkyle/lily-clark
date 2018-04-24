@@ -38,7 +38,9 @@ function view (state, emit) {
         ${slideshow.render(state, emit, {
           initialIndex: index,
           onSelect: function (_index) {
-            emit(state.events.PUSHSTATE, relative + '/' + files[_index].name)
+            var urlNext = relative + '/' + files[_index].name
+            if (state.href === urlNext) return
+            emit(state.events.PUSHSTATE, urlNext)
           },
           elements: files.map(function (file) {
             return html`

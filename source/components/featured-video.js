@@ -39,6 +39,16 @@ var styles = css`
 
   :host .featured-sound { left: 0; }
   :host .featured-skip { right: 0; }
+
+  :host .featured-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #000;
+    transform: translateX(-100%);
+  }
 `
 
 module.exports = class Video extends Nanocomponent {
@@ -54,13 +64,22 @@ module.exports = class Video extends Nanocomponent {
       loop: false
     }
 
+    this.handleCanPlayThrough = this.handleCanPlayThrough.bind(this)
     this.handleClickSkip = this.handleClickSkip.bind(this)
     this.handleSound = this.handleSound.bind(this)
+    this.handlePlay = this.handlePlay.bind(this)
+    this.handlePause = this.handlePause.bind(this)
     this.handleEnd = this.handleEnd.bind(this)
+    this.frame = this.frame.bind(this)
   }
 
   update (props) {
     return false
+  }
+
+  load (element) {
+    this.elProgress = element.querySelector('[data-progress]')
+    this.elVideo = element.querySelector('video')
   }
 
   createElement (props) {
@@ -70,7 +89,13 @@ module.exports = class Video extends Nanocomponent {
       <div class="${styles}">
         <video
           src="${this.local.src}"
+          oncanplaythrough=${this.handleCanPlayThrough}
+          onpause=${this.handlePause}
+          onclick=${this.handleSound}
+          onplay=${this.handlePlay}
           onended=${this.handleEnd}
+          style="cursor: pointer"
+          poster="${this.local.poster ? this.local.poster : ''}"
           ${this.local.autoplay ? 'autoplay' : ''}
           ${this.local.muted ? 'muted' : ''}
           ${this.local.loop ? 'loop' : ''}
@@ -84,8 +109,29 @@ module.exports = class Video extends Nanocomponent {
           class="featured-skip"
           onclick=${this.handleClickSkip}
         >Skip Video →</div>
+        <div class="featured-progress" data-progress></div>
       </div>
     `
+  }
+
+  handleCanPlayThrough (event) {
+    this.elVideo.play()
+  }
+
+  handlePlay () {
+    this.frame()
+  }
+
+  handlePause () {
+    window.cancelAnimationFrame(this.tick)
+  }
+
+  frame () {
+    var progress = 100 - (100 / this.elVideo.duration) * this.elVideo.currentTime
+    if (this.elProgress) {
+      this.elProgress.style.transform = 'translateX(' + progress * -1 + '%)'
+    } 
+    this.tick = window.requestAnimationFrame(this.frame)
   }
 
   handleSound (event) {
@@ -97,6 +143,8 @@ module.exports = class Video extends Nanocomponent {
     } else {
       this.local.muted = !this.local.muted
     }
+    
+    this.elVideo.style.cursor = 'default'
 
     if (video && sound) {
       if (this.local.muted) {
@@ -110,10 +158,12 @@ module.exports = class Video extends Nanocomponent {
   }
 
   handleEnd () {
+    window.cancelAnimationFrame(this.tick)
     this.emit(this.state.events.HOME, { video: false })
   }
 
   handleClickSkip () {
+    window.cancelAnimationFrame(this.tick)
     this.emit(this.state.events.HOME, { video: false })
   }
 }

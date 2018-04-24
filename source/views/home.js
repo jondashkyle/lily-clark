@@ -52,7 +52,12 @@ function view (state, emit) {
       ${renderSlideshowTitle()}
       ${renderSlideshow()}
       ${state.ui.home.video
-        ? state.cache(Video, 'home-video').render()
+        ? state
+          .cache(Video, 'home-video')
+          .render({
+            src: page('/featured').file('fountains.mp4').value('path'),
+            poster: page('/featured').file('fountains.png').value('path')
+          })
         : ''
       }
     </div>    
