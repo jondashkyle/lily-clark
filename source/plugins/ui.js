@@ -5,7 +5,10 @@ module.exports = plugin
 function plugin (opts) {
   return function (state, emitter) {
     state.ui = {
-      home: { index: 0 }
+      home: {
+        index: 0,
+        video: true
+      }
     }
 
     // events

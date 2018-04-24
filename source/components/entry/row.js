@@ -70,7 +70,7 @@ function row (state, emit, props) {
 }
 
 function formatDate (str) {
-  return str
+  return (str || '')
     .split('-')
     .reduce(function (arr, str, i, src) {
       arr.push(html`<span>${str.slice(-2)}</span>`)

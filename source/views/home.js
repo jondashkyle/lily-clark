@@ -2,8 +2,10 @@ var Page = require('enoki/page')
 var html = require('choo/html')
 var css = require('sheetify')
 
+var Video = require('../components/featured-video')
 var navigation = require('../components/navigation')
 var Slideshow = require('../components/slideshow')
+
 var slideshow = new Slideshow()
 
 var styles = css`
@@ -47,22 +49,36 @@ function view (state, emit) {
   return html`
     <div class="${styles}">
       ${navigation(state, emit)}
+      ${renderSlideshowTitle()}
+      ${renderSlideshow()}
+      ${state.ui.home.video
+        ? state.cache(Video, 'home-video').render()
+        : ''
+      }
+    </div>    
+  `
+
+  function renderSlideshowTitle () {
+    return html`
       <div class="slideshow-title">
         <a href="/${slidePage.name}">${slidePage.title}</a>
       </div>
-      ${slideshow.render(state, emit, {
-        elements: images,
-        startIndex: state.ui.home.index,
-        onStaticClick: function (event, pointer, cellElement, cellIndex) {
-          emit(state.events.PUSHSTATE, '/' + children[cellIndex].name)
-        },
-        onSelect: function (index) {
-          if (index === state.ui.home.index) return
-          emit(state.events.HOME, { index: index })
-        }
-      })}
-    </div>    
-  `
+    `
+  }
+
+  function renderSlideshow () {
+    return slideshow.render(state, emit, {
+      elements: images,
+      startIndex: state.ui.home.index,
+      onStaticClick: function (event, pointer, cellElement, cellIndex) {
+        emit(state.events.PUSHSTATE, '/' + children[cellIndex].name)
+      },
+      onSelect: function (index) {
+        if (index === state.ui.home.index) return
+        emit(state.events.HOME, { index: index })
+      }
+    })
+  }
 }
 
 function isFeatured (props) {
