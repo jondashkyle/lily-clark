@@ -115,6 +115,7 @@ module.exports = class Video extends Nanocomponent {
   }
 
   handleCanPlayThrough (event) {
+    this.elVideo.muted = true
     this.elVideo.play()
   }
 
@@ -148,10 +149,10 @@ module.exports = class Video extends Nanocomponent {
 
     if (video && sound) {
       if (this.local.muted) {
-        video.setAttribute('muted', true)
+        video.muted = true
         sound.innerHTML = 'Unmute'
       } else {
-        video.removeAttribute('muted')
+        video.muted = false
         sound.innerHTML = 'Mute'
       }
     }

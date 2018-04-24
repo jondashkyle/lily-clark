@@ -105,6 +105,7 @@ module.exports = view
 function view (state, emit) {
   var page = Page(state)
   var url = '/archive/' + state.params.entry
+  var drawing = page(url).file('drawing.svg').value('path')
   var children = page('/archive')
     .children()
     .toArray()
@@ -140,17 +141,23 @@ function view (state, emit) {
         <div class="images">
           ${files.map(createImage)}
         </div>
-        <div class="meta">
-          <div class="copy drawing">
-            <img src="${page(url).file('drawing.svg').value('path')}">
-          </div>
-        </div>
+        ${drawing ? createDrawing() : ''}
       </div>
       <div class="thumbnails">
         ${children.map(createChild)}
       </div>
     </div>
   `
+
+  function createDrawing () {
+    return html`
+      <div class="meta">
+        <div class="copy drawing">
+          <img src="${drawing}">
+        </div>
+      </div>
+    `
+  }
 
   function createChild (props) {
     var files = page(props).files().toArray()

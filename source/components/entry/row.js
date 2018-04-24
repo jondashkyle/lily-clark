@@ -7,7 +7,7 @@ var styles = css`
     grid-template-columns: repeat(12, 1fr); 
     grid-column-gap: 1rem;
   }
-
+  
   :host > :nth-child(1) { grid-column: span 2 }
   :host > :nth-child(2) { grid-column: span 7 }
   :host > :nth-child(3) { grid-column: span 3 }

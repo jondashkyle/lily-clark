@@ -40,6 +40,7 @@ function view (state, emit) {
     <div class="${styles}">
       ${navigation(state, emit)}
       <div class="copy">
+        <img src="${page().files().first().v('path')}">
         ${format(page().value('text'))}
       </div>
     </div>
