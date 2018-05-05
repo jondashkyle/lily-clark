@@ -2,6 +2,7 @@ var Page = require('enoki/page')
 var html = require('choo/html')
 var css = require('sheetify')
 
+var Drawings = require('../components/drawings')
 var navigation = require('../components/navigation')
 var format = require('../components/format')
 
@@ -33,6 +34,7 @@ var styles = css`
   }
 
   :host .purchase-link {
+    line-height: 1;
     display: block;
     position: absolute;
     bottom: 1rem;
@@ -100,12 +102,20 @@ var styles = css`
   }
 `
 
+var THUMBNAILS = false
+
 module.exports = view
 
 function view (state, emit) {
   var page = Page(state)
   var url = '/archive/' + state.params.entry
-  var drawing = page(url).file('drawing.svg').value('path')
+  var drawings = page(url)
+    .files()
+    .sortBy('name', 'asc')
+    .toArray()
+    .filter(function (props) {
+      return props.extension === '.svg'
+    })
   var children = page('/archive')
     .children()
     .toArray()
@@ -114,6 +124,7 @@ function view (state, emit) {
     })
   var files = page(url)
     .files()
+    .sortBy('name', 'asc')
     .toArray()
     .filter(function (props) {
       return props.extension !== '.svg'
@@ -124,9 +135,9 @@ function view (state, emit) {
   }
 
   return html`
-    <div id="featured-${page().value('name')}" class="${styles}">
-      ${navigation(state, emit)}
-      <div class="content">
+    <div class="${styles}">
+      ${navigation(state, emit, { fixed: true })}
+      <div class="content" id="featured-${page().value('name')}">
         <div class="meta">
           <div class="copy">
             <div class="text">
@@ -141,19 +152,28 @@ function view (state, emit) {
         <div class="images">
           ${files.map(createImage)}
         </div>
-        ${drawing ? createDrawing() : ''}
+        ${drawings.length ? createDrawing() : ''}
       </div>
+      ${THUMBNAILS ? createThumbnails() : ''}
+    </div>
+  `
+
+  function createThumbnails () {
+    return html`
       <div class="thumbnails">
         ${children.map(createChild)}
       </div>
-    </div>
-  `
+    `
+  }
 
   function createDrawing () {
     return html`
       <div class="meta">
         <div class="copy drawing">
-          <img src="${drawing}">
+          ${state
+            .cache(Drawings, page().v('name') + 'drawings')
+            .render({ imgs: drawings })
+          }
         </div>
       </div>
     `
@@ -173,7 +193,7 @@ function view (state, emit) {
   function createImage (props) {
     if (!props.name) return
     return html`
-      <a href="${state.href}/${props.name}">
+      <a href="/${state.params.entry}/${props.name}">
         <img src="${props.path}" />
       </a>
     `

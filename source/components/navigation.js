@@ -20,13 +20,18 @@ var styles = css`
     pointer-events: none;
     color: #ccc;
   }
+
+  @media (min-width: 767px) {
+    :host.fixed { position: fixed }
+  }
 `
 
 module.exports = navigation
 
-function navigation (state, emit) {
+function navigation (state, emit, props) {
+  props = props || { }
   return html`
-    <div class="${styles}">
+    <div class="${styles} ${props.fixed ? 'fixed' : ''}">
       <a href="/about" class="${state.href === '/about' ? 'active' : ''}">About</a>
       <a href="/archive">Archive</a>
     </div>

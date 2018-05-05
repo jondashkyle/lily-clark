@@ -44,7 +44,13 @@ module.exports = entry
 
 function entry (state, emit, props) {
   var page = Page(state)
-  var files = page(props).files().toArray()
+  var files = page(props)
+    .files()
+    .sortBy('name', 'asc')
+    .toArray()
+    .filter(function (props) {
+      return props.extension !== '.svg'
+    })
 
   return html`
     <div class="${styles}">

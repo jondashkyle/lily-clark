@@ -1,10 +1,12 @@
 var Page = require('enoki/page')
 var html = require('choo/html')
 var css = require('sheetify')
+var xtend = require('xtend')
 
 var Video = require('../components/featured-video')
 var navigation = require('../components/navigation')
 var Slideshow = require('../components/slideshow')
+var featured = require('./featured')
 
 var slideshow = new Slideshow()
 
@@ -24,6 +26,8 @@ var styles = css`
     pointer-events: auto;
   }
 `
+
+var SLIDESHOW = true
 
 module.exports = view
 
@@ -46,11 +50,20 @@ function view (state, emit) {
       `
     })
 
+  // featured
+  if (!state.ui.home.video) {
+    var name = children[0].name
+    return featured(
+      xtend(state, { params: { entry: name } }),
+      emit
+    )
+  }
+
   return html`
     <div class="${styles}">
       ${navigation(state, emit)}
-      ${renderSlideshowTitle()}
-      ${renderSlideshow()}
+      ${SLIDESHOW ? renderSlideshowTitle() : ''}
+      ${SLIDESHOW ? renderSlideshow() : ''}
       ${state.ui.home.video
         ? state
           .cache(Video, 'home-video')

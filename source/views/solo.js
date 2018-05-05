@@ -69,7 +69,11 @@ function view (state, emit) {
     try {
       return page(parent)
         .files()
+        .sortBy('name', 'asc')
         .toArray()
+        .filter(function (props) {
+          return props.extension !== '.svg'
+        })
     } catch (err) {
       return false
     }

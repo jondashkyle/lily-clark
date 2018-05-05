@@ -5,3 +5,6 @@ dat.json
 bundles/bundle.js
 bundles/bundle.css
 package-lock.json
+*.woff
+*.woff2
+*.eot

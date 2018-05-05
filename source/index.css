@@ -95,5 +95,8 @@ a {
 
 @font-face {
   font-family: 'Sneak';
-  src: url(/assets/Sneak-Trial-Light.otf) ;
+  src: url('/assets/Sneak-Light.eot');
+  src: url('/assets/Sneak-Light.eot?#iefix') format('embedded-opentype'),
+       url('/assets/Sneak-Light.woff2') format('woff2'),
+       url('/assets/Sneak-Light.woff') format('woff');
 }

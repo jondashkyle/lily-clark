@@ -160,11 +160,13 @@ module.exports = class Video extends Nanocomponent {
 
   handleEnd () {
     window.cancelAnimationFrame(this.tick)
-    this.emit(this.state.events.HOME, { video: false })
+    this.emit(this.state.events.HOME, { video: false, render: false })
+    this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
   }
 
   handleClickSkip () {
+    this.emit(this.state.events.HOME, { video: false, render: false })
+    this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
     window.cancelAnimationFrame(this.tick)
-    this.emit(this.state.events.HOME, { video: false })
   }
 }
