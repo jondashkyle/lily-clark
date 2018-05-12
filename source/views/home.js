@@ -45,6 +45,7 @@ function view (state, emit) {
         })
       // no files
       if (!files.length) return res
+      // custom slides
       if (props.slides) {
         var slides = (typeof props.slides === 'string')
           ? props.slides
@@ -54,10 +55,12 @@ function view (state, emit) {
               return slide.replace(/\n/g, '')
             })
           : props.slides
+        // add to the array
         slides.forEach(function (slide) {
           if (props.files[slide]) res.push(props.files[slide])
           else res.push(files[0])
         })
+      // push the first file
       } else {
         res.push(files[0])
       }
@@ -71,15 +74,6 @@ function view (state, emit) {
         </div>
       `
     })
-
-  // featured project
-  // if (!state.ui.home.video) {
-  //   var name = children[0].name
-  //   return featured(
-  //     xtend(state, { params: { entry: name } }),
-  //     emit
-  //   )
-  // }
 
   return html`
     <div class="${styles}">
@@ -111,6 +105,7 @@ function view (state, emit) {
       elements: images,
       initialIndex: state.ui.home.index,
       onStaticClick: function (event, pointer, cellElement, cellIndex) {
+        var slidePage = page(path.resolve(slides[state.ui.home.index].url, '../')).v()
         emit(state.events.PUSHSTATE, '/' + slidePage.name)
       },
       onSelect: function (index) {
