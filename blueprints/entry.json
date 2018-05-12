@@ -41,7 +41,8 @@
     },
     "slides": {
       "label": "Slides",
-      "type": "textarea"
+      "type": "textarea",
+      "toolbar": false
     }
   }
 }
