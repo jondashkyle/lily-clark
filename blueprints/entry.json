@@ -38,6 +38,10 @@
     "text": {
       "label": "Text",
       "type": "textarea"
+    },
+    "slides": {
+      "label": "Slides",
+      "type": "textarea"
     }
   }
 }
