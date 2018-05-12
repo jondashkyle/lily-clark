@@ -18,7 +18,8 @@
     "pages": {
       "label": "Pages",
       "type": "pages",
-      "limit": 40
+      "limit": 40,
+      "sort": "reverse-chronological"
     }
   }
 }

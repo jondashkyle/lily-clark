@@ -46,7 +46,15 @@ function view (state, emit) {
       // no files
       if (!files.length) return res
       if (props.slides) {
-        props.slides.forEach(function (slide) {
+        var slides = (typeof props.slides === 'string')
+          ? props.slides
+            .split('- ')
+            .filter(slide => slide)
+            .map(function (slide) {
+              return slide.replace(/\n/g, '')
+            })
+          : props.slides
+        slides.forEach(function (slide) {
           if (props.files[slide]) res.push(props.files[slide])
           else res.push(files[0])
         })
