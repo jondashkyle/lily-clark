@@ -2,6 +2,7 @@ var Page = require('enoki/page')
 var html = require('choo/html')
 var css = require('sheetify')
 var xtend = require('xtend')
+var path = require('path')
 
 var Video = require('../components/featured-video')
 var navigation = require('../components/navigation')
@@ -27,22 +28,35 @@ var styles = css`
   }
 `
 
-var SLIDESHOW = true
-
 module.exports = view
 
 function view (state, emit) {
   var page = Page(state)
-  var children = page('/archive').children().toArray().filter(isFeatured)
-  var slidePage = children[state.ui.home.index]
-  var images = children
-    .map(function (props) {
-      var files = page(props).files().toArray()
-      if (files.length) return files[0]
-      else return false
-    })
-    .filter(file => file)
-    .map(function (file) {
+  var slides = page('/archive')
+    .children()
+    .toArray()
+    .filter(isFeatured)
+    .reduce(function (res, props) {
+      var files = page(props)
+        .files()
+        .toArray()
+        .filter(function (props) {
+          return props.extension !== '.svg'
+        })
+      // no files
+      if (!files.length) return res
+      if (props.slides) {
+        props.slides.forEach(function (slide) {
+          if (props.files[slide]) res.push(props.files[slide])
+          else res.push(files[0])
+        })
+      } else {
+        res.push(files[0])
+      }
+      return res
+    }, [ ])
+    var slidePage = page(path.resolve(slides[state.ui.home.index].url, '../')).v()
+    var images = slides.map(function (file) {
       return html`
         <div class="slide-contain">
           <img data-flickity-lazyload="${file.path}">
@@ -50,20 +64,20 @@ function view (state, emit) {
       `
     })
 
-  // featured
-  if (!state.ui.home.video) {
-    var name = children[0].name
-    return featured(
-      xtend(state, { params: { entry: name } }),
-      emit
-    )
-  }
+  // featured project
+  // if (!state.ui.home.video) {
+  //   var name = children[0].name
+  //   return featured(
+  //     xtend(state, { params: { entry: name } }),
+  //     emit
+  //   )
+  // }
 
   return html`
     <div class="${styles}">
       ${navigation(state, emit)}
-      ${SLIDESHOW ? renderSlideshowTitle() : ''}
-      ${SLIDESHOW ? renderSlideshow() : ''}
+      ${renderSlideshowTitle()}
+      ${renderSlideshow()}
       ${state.ui.home.video
         ? state
           .cache(Video, 'home-video')
@@ -87,9 +101,9 @@ function view (state, emit) {
   function renderSlideshow () {
     return slideshow.render(state, emit, {
       elements: images,
-      startIndex: state.ui.home.index,
+      initialIndex: state.ui.home.index,
       onStaticClick: function (event, pointer, cellElement, cellIndex) {
-        emit(state.events.PUSHSTATE, '/' + children[cellIndex].name)
+        emit(state.events.PUSHSTATE, '/' + slidePage.name)
       },
       onSelect: function (index) {
         if (index === state.ui.home.index) return

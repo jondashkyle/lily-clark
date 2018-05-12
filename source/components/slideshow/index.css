@@ -8,7 +8,7 @@
 
 :host .flickity-prev-next-button {
   top: auto;
-  height: 33vh;
+  height: 100vh;
   width: 20%;
   bottom: 0;
   transform: none;
@@ -22,13 +22,19 @@
 .flickity-prev-next-button .flickity-button-icon {
   bottom: 50%;
   left: auto;
-  height: 1.5rem;
-  width: 1.5rem;   
-  margin-top: -0.75rem;
+  height: 35px;
+  width: 35px;   
+  margin-top: 17px;
 }
 
-:host .flickity-prev-next-button.previous { left: 0 }
-:host .flickity-prev-next-button.next { right: 0 }
+:host .flickity-prev-next-button.previous {
+  left: 0;
+}
+
+:host .flickity-prev-next-button.next {
+  cursor: ;
+  right: 0;
+}
 :host .flickity-button-icon { display: none }
 
 :host .flickity-prev-next-button:before {
@@ -61,6 +67,12 @@
 :host .flickity-prev-next-button.next:hover:before {
   transform: translate3d(-0.5rem, 0, 0);
 }
+
+/*
+:host.is-draggable .flickity-viewport {
+  cursor: pointer !important;
+}
+*/
 
 @media (max-width: 800px) {
   :host .flickity-prev-next-button {

@@ -41,6 +41,10 @@ var styles = css`
     left: 0;
   }
 
+  :host .text {
+    width: 100%;
+  }
+
   :host .text > * + * {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -89,6 +93,7 @@ var styles = css`
       padding-top: 4rem;
       min-height: auto;
       max-width: 25rem;
+      width: 100%;
     }
 
     :host .purchase-link {

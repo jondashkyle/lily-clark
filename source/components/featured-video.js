@@ -37,8 +37,22 @@ var styles = css`
     z-index: 3;
   }
 
+
+  :host .skip-arrow {
+    background-image: url(/assets/arrow-right.svg);
+    background-size: 100%;
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-left: 0.5rem;
+  }
+
   :host .featured-sound { left: 0; }
-  :host .featured-skip { right: 0; }
+
+  :host .featured-skip {
+    display: flex;
+    align-items: center;
+    right: 0;
+  }
 
   :host .featured-progress {
     position: absolute;
@@ -108,7 +122,10 @@ module.exports = class Video extends Nanocomponent {
         <div
           class="featured-skip"
           onclick=${this.handleClickSkip}
-        >Skip Video →</div>
+        >
+          Skip Video
+          <div class="skip-arrow"></div>
+        </div>
         <div class="featured-progress" data-progress></div>
       </div>
     `
@@ -160,13 +177,13 @@ module.exports = class Video extends Nanocomponent {
 
   handleEnd () {
     window.cancelAnimationFrame(this.tick)
-    this.emit(this.state.events.HOME, { video: false, render: false })
-    this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
+    this.emit(this.state.events.HOME, { video: false })
+    // this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
   }
 
   handleClickSkip () {
-    this.emit(this.state.events.HOME, { video: false, render: false })
-    this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
+    this.emit(this.state.events.HOME, { video: false })
+    // this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
     window.cancelAnimationFrame(this.tick)
   }
 }

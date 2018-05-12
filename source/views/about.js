@@ -12,16 +12,23 @@ var styles = css`
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    flex-wrap: wrap;
   }
 
   :host .copy {
     width: 100%;
-    max-width: 30rem;
+    max-width: 18rem;
+  }
+
+  :host img {
+    margin: 0 1rem;
+    width: 9rem;
+    height: 11.997728991rem;
+    display: block;
   }
 
   :host .copy > * + * {
     margin-top: 1rem;
-    margin-bottom: 1rem;
   }
 
   @media (max-width: 800px) {
@@ -39,8 +46,8 @@ function view (state, emit) {
   return html`
     <div class="${styles}">
       ${navigation(state, emit)}
+      <img src="${page().files().first().v('path')}">
       <div class="copy">
-        <img src="${page().files().first().v('path')}">
         ${format(page().value('text'))}
       </div>
     </div>
