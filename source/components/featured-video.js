@@ -31,19 +31,10 @@ var styles = css`
   :host .featured-sound {
     position: absolute;
     bottom: 0;
-    line-height: 1rem;
-    padding: 1rem;
+    line-height: 1.5rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
     z-index: 3;
-  }
-
-
-  :host .skip-arrow {
-    background-image: url(/assets/arrow-right.svg);
-    background-size: 100%;
-    height: 1.5rem;
-    width: 1.5rem;
-    margin-left: 0.5rem;
   }
 
   :host .featured-sound { left: 0; }

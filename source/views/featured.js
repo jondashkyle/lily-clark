@@ -34,10 +34,10 @@ var styles = css`
   }
 
   :host .purchase-link {
-    line-height: 1;
-    display: block;
+    line-height: 1.5rem;
+    display: flex;
     position: absolute;
-    bottom: 1rem;
+    bottom: 0.75rem;
     left: 0;
   }
 
@@ -56,8 +56,13 @@ var styles = css`
   }
 
   :host .images > * {
+    background: #eee;
     display: block;
     margin-bottom: 1rem;
+  }
+
+  :host .images img {
+    display: block;
   }
 
   :host .thumbnails {
@@ -153,7 +158,10 @@ function view (state, emit) {
               ${format(page(url).value('text'))}
               <p>${page(url).value('price')}</p>
             </div>
-            <a href="mailto:${page('/').value('email')}" class="purchase-link">Inquire to purchase →</a>
+            <div class="purchase-link">
+              <a href="mailto:${page('/').value('email')}">Inquire to purchase</a>
+              <div class="skip-arrow"></div>
+            </div>
           </div>
         </div>
         <div class="images">
