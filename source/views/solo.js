@@ -42,6 +42,9 @@ function view (state, emit) {
             if (state.href === urlNext) return
             emit(state.events.PUSHSTATE, urlNext)
           },
+          onStaticClick: function (event, pointer, cellElement, cellIndex) {
+            emit(state.events.PUSHSTATE, parent)
+          },
           elements: files.map(function (file) {
             return html`
               <div class="slide-contain no-pad">

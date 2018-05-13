@@ -21,9 +21,9 @@ var styles = css`
   }
 
   :host img {
-    margin: 0 1rem;
-    width: 9rem;
-    height: 11.997728991rem;
+    margin: 1rem;
+    width: 12rem;
+    height: 14.997728991rem;
     display: block;
   }
 
@@ -33,7 +33,7 @@ var styles = css`
 
   @media (max-width: 800px) {
     :host {
-      padding: 1rem 1rem 1rem 1rem;
+      padding: 2.5rem 1rem 1rem 1rem;
     }
   }
 `

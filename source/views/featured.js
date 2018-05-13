@@ -42,6 +42,7 @@ var styles = css`
   }
 
   :host .text {
+    max-width: 15rem;
     width: 100%;
   }
 

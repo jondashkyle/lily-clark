@@ -102,3 +102,9 @@
   height: 100%;
   width: 100%;
 }
+
+@media (max-width: 800px) {
+  :host .slide-contain {
+    padding: 3.5rem 1rem;
+  }
+}

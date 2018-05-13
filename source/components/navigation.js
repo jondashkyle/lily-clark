@@ -32,8 +32,8 @@ function navigation (state, emit, props) {
   props = props || { }
   return html`
     <div class="navigation ${styles} ${props.fixed ? 'fixed' : ''}">
-      <a href="/about" class="${state.href === '/about' ? 'active' : ''}">About</a>
       <a href="/archive" class="${state.href.indexOf('/archive') >= 0 ? 'active' : ''}">Archive</a>
+      <a href="/about" class="${state.href === '/about' ? 'active' : ''}">About</a>
     </div>
   `
 }
