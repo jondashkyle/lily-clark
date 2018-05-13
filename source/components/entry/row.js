@@ -63,7 +63,7 @@ function row (state, emit, props) {
       <div><p><span>${props.title}</span></p></div>
       <div>
         <div>${props.tags}</div>
-        <div class="close ${props.active ? 'active' : ''}"></div>
+        <div class="minimize ${props.active ? 'active' : ''}"></div>
       </div>
     </div>
   `

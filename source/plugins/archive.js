@@ -13,10 +13,12 @@ function archive () {
     state.events.ARCHIVE_ADD = 'archive:add'
     state.events.ARCHIVE_REMOVE = 'archive:remove'
     state.events.ARCHIVE_TOGGLE = 'archive:toggle'
+    state.events.ARCHIVE_RESET = 'archive:reset'
 
     emitter.on(state.events.ARCHIVE_ADD, handleAdd)
     emitter.on(state.events.ARCHIVE_REMOVE, handleRemove)
     emitter.on(state.events.ARCHIVE_TOGGLE, handleToggle)
+    emitter.on(state.events.ARCHIVE_RESET, handleReset)
 
     function handleAdd (data) {
       data = data || { }
@@ -38,7 +40,15 @@ function archive () {
       }
     }
 
-    function handleToggle (data = { }) {
+    function handleReset (data) {
+      data = data || { }
+      state.archive.active = [ ]
+      console.log(state.archive.active)
+      if (data.render !== false) emitter.emit(state.events.RENDER)
+    }
+
+    function handleToggle (data) {
+      data = data || { }
       var shouldToggle = !state.archive.toggled
       var shouldRender = data.render !== false
 

@@ -80,6 +80,43 @@ a {
 .close:before { transform: rotate(-45deg) }
 
 /**
+ * Minimize
+ */
+
+.minimize {
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+  vertical-align: middle;
+  margin-left: 1rem;
+}
+
+.minimize.active:before {
+  display: none; 
+}
+
+.minimize:after,
+.minimize:before {
+  background: currentColor;
+  display: block;
+  content: '';
+  position: absolute;
+}
+
+.minimize:after {
+  top: 0.75rem;
+  height: 1px;
+  width: 1.5rem;
+}
+
+.minimize:before {
+  left: 0.75rem;
+  height: 1.5rem;
+  width: 1px;
+}
+
+/**
  * Invert
  */
 

@@ -23,7 +23,10 @@ function wrapper (view) {
     }
 
     // invert
-    var invert = (state.route === ':entry/:name') ? 'invert' : ''
+    var invert = (
+      state.route === 'archive/:entry/:name' ||
+      state.route === ':entry/:name'
+    ) ? 'invert' : ''
 
     return html`
       <body class="${invert}">
