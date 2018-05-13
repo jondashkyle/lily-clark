@@ -1,8 +1,14 @@
 var Page = require('enoki/page')
 var html = require('choo/html')
+var css = require('sheetify')
 
 var Archive = require('../components/archive')
+var navigation = require('../components/navigation')
 var archive = new Archive()
+
+var styles = css`
+  :host { padding-top: 3.5rem }
+`
 
 module.exports = view
 
@@ -26,7 +32,8 @@ function view (state, emit) {
   })
 
   return html`
-    <div>
+    <div class="${styles}">
+      ${navigation(state, emit)}
       ${archive.render(state, emit, {
         visited: state.archive.visited,
         active: state.archive.active,

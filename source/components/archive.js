@@ -23,7 +23,7 @@ var styles = css`
 
   @media (max-width: 800px) {
     :host {
-      padding: 3rem 1rem 0 1rem;
+      padding: 0 1rem 0 1rem;
     }
 
     :host .archive-toggle {

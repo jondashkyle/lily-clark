@@ -8,6 +8,10 @@ var styles = css`
     padding: 0; 
   }
 
+  :host:first-child {
+    border-top: 1px solid #000;
+  }
+
   :host:not(:last-child) {
     border-bottom: 1px solid #000;
   }

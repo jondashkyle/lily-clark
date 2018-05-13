@@ -22,8 +22,11 @@ function wrapper (view) {
       return createNotFound(state, emit)
     }
 
+    // invert
+    var invert = (state.route === ':entry/:name') ? 'invert' : ''
+
     return html`
-      <body>
+      <body class="${invert}">
         <a href="/" class="icon"></a>
         ${view(state, emit)}
       </body>

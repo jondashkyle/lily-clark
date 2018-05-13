@@ -31,9 +31,9 @@ module.exports = navigation
 function navigation (state, emit, props) {
   props = props || { }
   return html`
-    <div class="${styles} ${props.fixed ? 'fixed' : ''}">
+    <div class="navigation ${styles} ${props.fixed ? 'fixed' : ''}">
       <a href="/about" class="${state.href === '/about' ? 'active' : ''}">About</a>
-      <a href="/archive">Archive</a>
+      <a href="/archive" class="${state.href.indexOf('/archive') >= 0 ? 'active' : ''}">Archive</a>
     </div>
   `
 }

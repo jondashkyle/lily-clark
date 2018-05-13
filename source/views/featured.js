@@ -51,7 +51,7 @@ var styles = css`
   }
 
   :host .images {
-    margin-top: 4rem;
+    margin-top: 3.5rem;
     grid-column-end: span 6;
   }
 
@@ -82,6 +82,8 @@ var styles = css`
 
   :host .drawing {
     padding: 2rem;
+    max-width: 12rem;
+    margin: 0 auto;
   }
 
   @media (max-width: 767px) {

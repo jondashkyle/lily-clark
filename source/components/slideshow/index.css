@@ -19,6 +19,10 @@
   background: none;
 }
 
+.flickity-button:active {
+  opacity: 1;
+}
+
 .flickity-prev-next-button .flickity-button-icon {
   bottom: 50%;
   left: auto;

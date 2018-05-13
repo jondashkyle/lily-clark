@@ -80,6 +80,21 @@ a {
 .close:before { transform: rotate(-45deg) }
 
 /**
+ * Invert
+ */
+
+body.invert {
+  background: #000;
+}
+
+.invert .close,
+.invert .icon,
+.invert .navigation,
+.invert .flickity-button {
+  filter: invert(1);
+}
+
+/**
  * mobile
  */
 
