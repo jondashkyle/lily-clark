@@ -76,7 +76,7 @@ function entry (state, emit, props) {
   `
 
   function createThumbnail (state, emit, file) {
-    var href = file.href || props.url + file.name
+    var href = file.href || props.url + '/' + file.name
     return html`
       <a href="${href}">
         <img src="${file.path}">
