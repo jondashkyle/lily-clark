@@ -41,14 +41,17 @@ var styles = css`
     left: 0;
   }
 
+  :host .purchase-link a {
+    text-decoration: none;
+  }
+
   :host .text {
     max-width: 15rem;
     width: 100%;
   }
 
   :host .text > * + * {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
   }
 
   :host .images {

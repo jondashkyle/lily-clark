@@ -34,6 +34,14 @@ var styles = css`
     display: block;
   }
 
+  :host .copy *+* {
+    margin-top: 0.5rem;
+  }
+
+  :host .copy a {
+    text-decoration: underline;
+  }
+
   @media (max-width: 800px) {
     :host > div {
       grid-column-start: 1;

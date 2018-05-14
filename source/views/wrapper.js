@@ -1,4 +1,14 @@
 var html = require('choo/html')
+var css = require('sheetify')
+
+var styles = css`
+  :host.notfound {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+`
 
 module.exports = wrapper
 
@@ -31,6 +41,7 @@ function wrapper (view) {
       state.route === 'video'
     ) ? 'invert' : ''
 
+    // container
     return html`
       <body class="${invert}">
         <a href="/" class="icon"></a>
@@ -52,8 +63,11 @@ function createLoading (state, emit) {
 
 function createNotFound (state, emit) {
   return html`
-    <body>
-      <h1>Page not found</h1>
+    <body class="${styles} notfound">
+      <a href="/" class="icon"></a>
+      <div class="copy">
+        Page not found. Head <a href="/" class="tdu">home</a>?
+      </div>
     </body>
   `
 }

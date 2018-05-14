@@ -23,6 +23,10 @@ a {
   color: inherit;
 }
 
+a.tdu {
+  text-decoration: underline;
+}
+
 /**
  * icon
  */
@@ -43,18 +47,6 @@ a {
 .loading {
   height: 3rem;
   width: 3rem;
-}
-
-/**
- * copy
- */
-
-.copy *+* {
-  margin-top: 0.5rem;
-}
-
-.copy a {
-  text-decoration: underline;
 }
 
 /**
