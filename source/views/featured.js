@@ -160,7 +160,7 @@ function view (state, emit) {
               <p>${page(url).value('price')}</p>
             </div>
             <div class="purchase-link">
-              <a href="mailto:${page('/').value('email')}">Inquire to purchase</a>
+              <a href="/inquire">Inquire to purchase</a>
               <div class="skip-arrow"></div>
             </div>
           </div>

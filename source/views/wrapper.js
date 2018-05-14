@@ -17,6 +17,7 @@ function wrapper (view) {
       state.route !== 'archive/:entry/:name' &&
       state.route !== ':entry' &&
       state.route !== ':entry/:name' &&
+      state.route !== 'inquire' &&
       !state.content[state.href || '/']
     ) {
       return createNotFound(state, emit)
