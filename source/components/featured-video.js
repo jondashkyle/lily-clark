@@ -27,6 +27,14 @@ var styles = css`
     object-fit: cover;
   }
 
+  :host.contain {
+    background: #000;
+  }
+
+  :host.contain video {
+    object-fit: contain;
+  }
+
   :host .featured-skip,
   :host .featured-sound {
     position: absolute;
@@ -66,7 +74,8 @@ module.exports = class Video extends Nanocomponent {
       src: '/content/featured/fountains.mp4',
       autoplay: true,
       muted: true,
-      loop: false
+      loop: false,
+      ui: true
     }
 
     this.handleCanPlayThrough = this.handleCanPlayThrough.bind(this)
@@ -91,7 +100,7 @@ module.exports = class Video extends Nanocomponent {
     this.local = xtend(this.local, props)
 
     return html`
-      <div class="${styles}">
+      <div class="${styles} ${this.local.contain ? 'contain' : ''}">
         <video
           src="${this.local.src}"
           oncanplaythrough=${this.handleCanPlayThrough}
@@ -105,6 +114,14 @@ module.exports = class Video extends Nanocomponent {
           ${this.local.muted ? 'muted' : ''}
           ${this.local.loop ? 'loop' : ''}
         ></video>
+        ${this.local.ui ? this.createUi() : ''}
+      </div>
+    `
+  }
+
+  createUi () {
+    return html`
+      <div>
         <div
           class="featured-sound"
           onclick=${this.handleSound}
@@ -123,7 +140,7 @@ module.exports = class Video extends Nanocomponent {
   }
 
   handleCanPlayThrough (event) {
-    this.elVideo.muted = true
+    if (this.local.muted) this.elVideo.muted = true
     this.elVideo.play()
   }
 

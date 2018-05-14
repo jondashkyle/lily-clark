@@ -1,6 +1,7 @@
 var Page = require('enoki/page')
 var html = require('choo/html')
 var css = require('sheetify')
+var format = require('../format')
 
 var styles = css`
   :host {
@@ -55,7 +56,9 @@ function entry (state, emit, props) {
 
   return html`
     <div class="${styles}">
-      <div>${props.text}</div>
+      <div class="copy">
+        ${format(props.text)}
+      </div>
       <div>
         ${files.map(function (file) {
           return createThumbnail(state, emit, file)
@@ -65,8 +68,9 @@ function entry (state, emit, props) {
   `
 
   function createThumbnail (state, emit, file) {
+    var href = file.href || props.url + file.name
     return html`
-      <a href="${props.url}/${file.name}">
+      <a href="${href}">
         <img src="${file.path}">
       </a>
     `

@@ -46,6 +46,18 @@ a {
 }
 
 /**
+ * copy
+ */
+
+.copy *+* {
+  margin-top: 0.5rem;
+}
+
+.copy a {
+  text-decoration: underline;
+}
+
+/**
  * ui
  */
 

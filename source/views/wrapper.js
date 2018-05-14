@@ -18,6 +18,7 @@ function wrapper (view) {
       state.route !== ':entry' &&
       state.route !== ':entry/:name' &&
       state.route !== 'inquire' &&
+      state.route !== 'video' &&
       !state.content[state.href || '/']
     ) {
       return createNotFound(state, emit)
@@ -26,7 +27,8 @@ function wrapper (view) {
     // invert
     var invert = (
       state.route === 'archive/:entry/:name' ||
-      state.route === ':entry/:name'
+      state.route === ':entry/:name' || 
+      state.route === 'video'
     ) ? 'invert' : ''
 
     return html`
