@@ -6,10 +6,14 @@ var css = require('sheetify')
 
 var styles = css`
   :host {
-    padding: 1rem;
     width: 100%;
     max-width: 30rem;
     position: relative;
+    text-align: center;
+  }
+
+  :host .freebirdFormviewerViewFormContent  {
+    text-align: left;
   }
 
   :host input, :host textarea, :host button {

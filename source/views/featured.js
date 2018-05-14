@@ -37,6 +37,7 @@ var styles = css`
     line-height: 1.5rem;
     display: flex;
     position: absolute;
+    padding-top: 0.5rem;
     bottom: 0.75rem;
     left: 0;
   }

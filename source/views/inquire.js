@@ -10,6 +10,7 @@ var styles = css`
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 3.5rem 1rem 1rem;
   }
 `
 
