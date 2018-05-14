@@ -3,27 +3,33 @@ var css = require('sheetify')
 
 var styles = css`
   :host {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr); 
-    grid-column-gap: 1rem;
+    display: flex;
+    justify-content: space-between;
   }
   
-  :host > :nth-child(1) { grid-column: span 2 }
-  :host > :nth-child(2) { grid-column: span 7 }
-  :host > :nth-child(3) { grid-column: span 3 }
-
-  :host > :nth-child(1) {
+  :host .date {
     display: flex;
     padding-right: 1rem;
+    width: 20%;
   }
 
-  :host > :nth-child(1) > span {
+  :host .date > span {
     width: 100%;
   }
 
-  :host > :nth-child(3) {
+  :host .text {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  :host .title {
+    max-width: 30rem;
+  }
+
+  :host .meta {
+    display: flex;
+    margin-left: 1rem;
   }
 
   :host p {
@@ -48,9 +54,7 @@ var styles = css`
   }
 
   @media (max-width: 800px) {
-    :host > :nth-child(1) { display: none }
-    :host > :nth-child(2) { grid-column: span 8 }
-    :host > :nth-child(3) { grid-column: span 4 }
+    :host .date { display: none }
   }
 `
 
@@ -59,11 +63,13 @@ module.exports = row
 function row (state, emit, props) {
   return html`
     <div class="${styles}">
-      <div>${formatDate(props.date)}</div>
-      <div><p><span>${props.title}</span></p></div>
-      <div>
-        <div>${props.tags}</div>
-        <div class="minimize ${props.active ? 'active' : ''}"></div>
+      <div class="date">${formatDate(props.date)}</div>
+      <div class="text">
+        <div class="title"><p><span>${props.title}</span></p></div>
+        <div class="meta">
+          <div>${props.tags}</div>
+          <div class="minimize ${props.active ? 'active' : ''}"></div>
+        </div>
       </div>
     </div>
   `

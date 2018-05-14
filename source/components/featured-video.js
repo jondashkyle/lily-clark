@@ -110,6 +110,7 @@ module.exports = class Video extends Nanocomponent {
           onended=${this.handleEnd}
           style="cursor: pointer"
           poster="${this.local.poster ? this.local.poster : ''}"
+          playsinline
           ${this.local.autoplay ? 'autoplay' : ''}
           ${this.local.muted ? 'muted' : ''}
           ${this.local.loop ? 'loop' : ''}
