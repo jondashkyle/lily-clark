@@ -4,6 +4,7 @@ content
 dat.json
 bundles/bundle.js
 bundles/bundle.css
+bundles/content.json
 package-lock.json
 *.woff
 *.woff2
