@@ -1,8 +1,8 @@
 <h1 align="center">Lily Clark</h1>
 
-<div align="center"><a href="https://lily-clark.com">lily-clark.com</a></div>
+<div align="center"><a href="https://lily-clark.com">lily-clark.com</a></div><br><br>
 
-A site for Lily! Built with Enoki. Note that the content is not included in this repository. For that, please clone the Dat archive and place `/content` in the root directory.
+A site for Lily! Built with [Enoki](https://enoki.site). Note that the content is not included in this repository. For that, please clone the Dat archive and place `/content` in the root directory.
 
 ```
 npm i -g dat
