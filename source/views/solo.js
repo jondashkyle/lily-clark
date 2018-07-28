@@ -43,7 +43,7 @@ function view (state, emit) {
             emit(state.events.PUSHSTATE, urlNext)
           },
           onStaticClick: function (event, pointer, cellElement, cellIndex) {
-            emit(state.events.PUSHSTATE, parent)
+            emit(state.events.PUSHSTATE, relative)
           },
           elements: files.map(function (file) {
             return html`
