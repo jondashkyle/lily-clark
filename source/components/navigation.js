@@ -21,6 +21,8 @@ var styles = css`
     color: #ccc;
   }
 
+  :host .home-active { display: none }
+
   @media (min-width: 767px) {
     :host.fixed { position: fixed }
   }
@@ -30,10 +32,12 @@ module.exports = navigation
 
 function navigation (state, emit, props) {
   props = props || { }
+  console.log(state.href)
   return html`
     <div class="navigation ${styles} ${props.fixed ? 'fixed' : ''}">
-      <a href="/archive" class="${state.href.indexOf('/archive') >= 0 ? 'active' : ''}">Archive</a>
+      <a href="/" class="${!state.href || state.href === '/' ? 'home-active' : ''}">Home</a>
       <a href="/about" class="${state.href === '/about' ? 'active' : ''}">About</a>
+      <a href="/archive" class="${state.href.indexOf('/archive') >= 0 ? 'active' : ''}">Archive</a>
     </div>
   `
 }

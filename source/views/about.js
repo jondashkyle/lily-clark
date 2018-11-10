@@ -17,11 +17,12 @@ var styles = css`
 
   :host .copy {
     width: 100%;
-    max-width: 18rem;
+    text-align: center;
+    max-width: 30rem;
   }
 
   :host img {
-    margin: 1rem;
+    margin: 1rem auto 4rem;
     width: 12rem;
     height: 14.997728991rem;
     display: block;
@@ -46,9 +47,11 @@ function view (state, emit) {
   return html`
     <div class="${styles}">
       ${navigation(state, emit)}
-      <img src="${page().files().first().v('path')}">
-      <div class="copy">
-        ${format(page().value('text'))}
+      <div>
+        <img src="${page().files().first().v('path')}">
+        <div class="copy">
+          ${format(page().value('text'))}
+        </div>
       </div>
     </div>
   `

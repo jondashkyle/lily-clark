@@ -6,14 +6,14 @@ var css = require('sheetify')
 var styles = css`
   :host {
     background: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 90vh;
     z-index: 3;
     user-select: none;
     -moz-user-select: none;
+    line-height: 1;
   }
 
   :host video {
@@ -35,7 +35,7 @@ var styles = css`
     object-fit: contain;
   }
 
-  :host .featured-skip,
+  :host .featured-play-pause,
   :host .featured-sound {
     position: absolute;
     bottom: 0;
@@ -47,7 +47,7 @@ var styles = css`
 
   :host .featured-sound { left: 0; }
 
-  :host .featured-skip {
+  :host .featured-play-pause {
     display: flex;
     align-items: center;
     right: 0;
@@ -79,7 +79,7 @@ module.exports = class Video extends Nanocomponent {
     }
 
     this.handleCanPlayThrough = this.handleCanPlayThrough.bind(this)
-    this.handleClickSkip = this.handleClickSkip.bind(this)
+    this.handleClickPlayPause = this.handleClickPlayPause.bind(this)
     this.handleSound = this.handleSound.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.handlePause = this.handlePause.bind(this)
@@ -129,11 +129,10 @@ module.exports = class Video extends Nanocomponent {
           onmouseenter=${this.handleSound}
         >${this.local.muted ? 'Unmute' : 'Mute'}</div>
         <div
-          class="featured-skip"
-          onclick=${this.handleClickSkip}
+          class="featured-play-pause"
+          onclick=${this.handleClickPlayPause}
         >
-          Skip Video
-          <div class="skip-arrow"></div>
+          Pause
         </div>
         <div class="featured-progress" data-progress></div>
       </div>
@@ -146,10 +145,15 @@ module.exports = class Video extends Nanocomponent {
   }
 
   handlePlay () {
+    var playpause = this.element.querySelector('.featured-play-pause')
+    playpause.innerHTML = 'Pause'
+
     this.frame()
   }
 
   handlePause () {
+    var playpause = this.element.querySelector('.featured-play-pause')
+    playpause.innerHTML = 'Play'
     window.cancelAnimationFrame(this.tick)
   }
 
@@ -192,9 +196,14 @@ module.exports = class Video extends Nanocomponent {
     // this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
   }
 
-  handleClickSkip () {
-    this.emit(this.state.events.HOME, { video: false })
+  handleClickPlayPause () {
+    if (this.elVideo.paused) {
+      this.elVideo.play()
+    } else {
+      this.elVideo.pause()
+      window.cancelAnimationFrame(this.tick)
+    }
+    // this.emit(this.state.events.HOME, { video: false })
     // this.emit(this.state.events.REPLACESTATE, '/gate-fountain')
-    window.cancelAnimationFrame(this.tick)
   }
 }

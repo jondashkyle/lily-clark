@@ -28,7 +28,7 @@ function plugin (opts) {
     }
 
     function handleNavigate () {
-      if (state.route === ':entry') {
+      if (state.route !== 'archive/:entry' && state.route !== 'archive') {
         window.scrollTo(0, 0)
       }
     }

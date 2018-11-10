@@ -4,6 +4,7 @@ var css = require('sheetify')
 
 var Drawings = require('../components/drawings')
 var navigation = require('../components/navigation')
+var thumbnails = require('../components/featured-thumbnails')
 var format = require('../components/format')
 
 var styles = css`
@@ -28,6 +29,7 @@ var styles = css`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    position: -webkit-sticky;
     position: sticky;
     min-height: 100vh;
     width: 100%;
@@ -70,30 +72,15 @@ var styles = css`
     display: block;
   }
 
-  :host .thumbnails {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-    grid-gap: 1rem;
-    align-items: flex-end;
-    margin-top: 3rem;
-  }
-
-  :host .thumbnail {
-    display: block;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  :host .thumbnail img {
-    display: block;
-    margin-bottom: 1rem;
-    width: 100%;
-  }
-
   :host .drawing {
     padding: 2rem;
     max-width: 12rem;
     margin: 0 auto;
+  }
+
+  :host .thumbnails {
+    border-top: 1px solid #000;
+    padding-top: 1rem;
   }
 
   @media (max-width: 767px) {
@@ -174,17 +161,9 @@ function view (state, emit) {
         </div>
         ${drawings.length ? createDrawing() : ''}
       </div>
-      ${THUMBNAILS ? createThumbnails() : ''}
+      ${thumbnails(state, emit)}
     </div>
   `
-
-  function createThumbnails () {
-    return html`
-      <div class="thumbnails">
-        ${children.map(createChild)}
-      </div>
-    `
-  }
 
   function createDrawing () {
     return html`

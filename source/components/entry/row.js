@@ -13,9 +13,9 @@ var styles = css`
     width: 20%;
   }
 
-  :host .date > span {
-    width: 100%;
-  }
+  :host .date > span { width: 100% }
+  :host .date > span:nth-child(3) { text-align: center }
+  :host .date > span:nth-child(5) { text-align: right }
 
   :host .text {
     display: flex;

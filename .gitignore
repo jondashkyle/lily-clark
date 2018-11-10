@@ -6,6 +6,7 @@ bundles/bundle.js
 bundles/bundle.css
 bundles/content.json
 package-lock.json
+shrinkwrap.yaml
 *.woff
 *.woff2
 *.eot
