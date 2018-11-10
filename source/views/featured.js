@@ -9,7 +9,7 @@ var format = require('../components/format')
 
 var styles = css`
   :host {
-    padding: 0 1rem;
+
   }
 
   :host .content {
@@ -21,6 +21,7 @@ var styles = css`
 
   :host .meta {
     grid-column-end: span 3;
+    padding: 0 1rem;
     position: relative;
   }
 
@@ -68,6 +69,10 @@ var styles = css`
     margin-bottom: 1rem;
   }
 
+  :host .images > *:last-child {
+    margin-bottom: 0;
+  }
+
   :host .images img {
     display: block;
   }
@@ -79,8 +84,7 @@ var styles = css`
   }
 
   :host .thumbnails {
-    border-top: 1px solid #000;
-    padding-top: 1rem;
+    padding-top: 3.5rem;
   }
 
   @media (max-width: 767px) {

@@ -11,7 +11,7 @@ var featured = require('./featured')
 
 var styles = css`
   :host > .thumbnails {
-    padding: 1rem;
+    margin-top: 1rem;
   }
 `
 

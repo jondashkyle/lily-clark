@@ -32,7 +32,6 @@ module.exports = navigation
 
 function navigation (state, emit, props) {
   props = props || { }
-  console.log(state.href)
   return html`
     <div class="navigation ${styles} ${props.fixed ? 'fixed' : ''}">
       <a href="/" class="${!state.href || state.href === '/' ? 'home-active' : ''}">Home</a>
